@@ -27,7 +27,7 @@ def _():
 ##############################
 @get("/login")
 def _():
-    try:
+    try:       
         return template("login.html")
     except Exception as ex:
         if len(ex.args) >= 2: # own created exception
@@ -88,6 +88,7 @@ def _():
 @get("/profile")
 def _():
     try:
+        x.disable_cache()
         name = request.get_cookie("me", secret="my secret")
 
         if name is None: # not a valid cookie
@@ -137,6 +138,7 @@ def _():
 ##############################
 @get("/logout")
 def _():
+    x.disable_cache()
     response.delete_cookie("me")
     return redirect("/login")
 
